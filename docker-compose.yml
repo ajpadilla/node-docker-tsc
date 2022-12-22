@@ -1,0 +1,23 @@
+version: "3"
+services:
+  web_tsc:
+    container_name: webapptsc
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001"
+    links:
+      - mongo_tsc
+    volumes:
+      - .:/usr/src/app
+  mongo_tsc:
+    container_name: mymongodatabasetsc
+    image: mongo
+    ports:
+      - "27019:27017"
+    volumes:
+      - ./docker/data/mongo:/data/db
+    logging:
+      driver: none
